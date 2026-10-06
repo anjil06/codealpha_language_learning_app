@@ -1,0 +1,54 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Public educational learning content: Read-only for all users, write restricted to admin
+    match /languages/{languageId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /lessons/{lessonId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /vocabulary/{vocabularyId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /grammar/{grammarId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /quizzes/{quizId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // User profile documents: Read and write only by the owner
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isOwner(userId);
+      allow delete: if isOwner(userId);
+    }
+
+    // User learning progress & records: Strictly private to the individual user
+    match /userProgress/{userId} {
+      allow read: if isOwner(userId);
+      allow write, update, create: if isOwner(userId);
+    }
+  }
+}
+

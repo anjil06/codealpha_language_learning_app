@@ -227,7 +227,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           Expanded(
             child: ListView.separated(
               itemCount: languages.length,
-              separatorBuilder: (_, __) => const SizedBox(height: 10),
+              separatorBuilder: (_, _) => const SizedBox(height: 10),
               itemBuilder: (context, index) {
                 final lang = languages[index];
                 final isSelected = lang.id == _selectedLanguageId;

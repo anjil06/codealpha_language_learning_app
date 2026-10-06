@@ -4,7 +4,7 @@ import '../core/services/firebase_service.dart';
 import '../models/vocabulary_model.dart';
 
 class VocabularyRepository {
-  List<VocabularyModel> _vocabList = List.from(SampleData.initialVocabulary);
+  final List<VocabularyModel> _vocabList = List.from(SampleData.initialVocabulary);
 
   Future<List<VocabularyModel>> getVocabulary({
     String languageId = 'spanish',
@@ -49,3 +49,4 @@ class VocabularyRepository {
     return items.take(limit).toList();
   }
 }
+

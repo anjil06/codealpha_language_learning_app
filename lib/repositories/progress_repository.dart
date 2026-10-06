@@ -3,7 +3,6 @@ import '../core/constants/app_constants.dart';
 import '../core/services/firebase_service.dart';
 import '../core/services/storage_service.dart';
 import '../models/progress_model.dart';
-import '../models/user_model.dart';
 import 'auth_repository.dart';
 
 class ProgressRepository {
@@ -181,3 +180,4 @@ class ProgressRepository {
     }
   }
 }
+

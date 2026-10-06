@@ -21,7 +21,7 @@ class LanguageSelectionScreen extends ConsumerWidget {
       body: ListView.separated(
         padding: const EdgeInsets.all(20),
         itemCount: languages.length,
-        separatorBuilder: (_, __) => const SizedBox(height: 12),
+        separatorBuilder: (_, _) => const SizedBox(height: 12),
         itemBuilder: (context, index) {
           final lang = languages[index];
           final isSelected = lang.id == selectedLanguageId;
@@ -44,7 +44,7 @@ class LanguageSelectionScreen extends ConsumerWidget {
                   ref.read(authRepositoryProvider).updateUser(updated);
                   ref.read(userStateProvider.notifier).setUser(updated);
                 }
-                if (context.canPop()) {
+                if (context.mounted && context.canPop()) {
                   context.pop();
                 }
               },
@@ -150,3 +150,4 @@ class LanguageSelectionScreen extends ConsumerWidget {
     );
   }
 }
+

@@ -132,3 +132,4 @@ class QuizResultModel {
   double get accuracy => totalQuestions > 0 ? (correctCount / totalQuestions) * 100 : 0.0;
   bool get isPassed => accuracy >= 70.0;
 }
+

@@ -40,3 +40,4 @@ class AppColors {
   static const Color difficultyIntermediate = Color(0xFF3B82F6);
   static const Color difficultyAdvanced = Color(0xFF8B5CF6);
 }
+

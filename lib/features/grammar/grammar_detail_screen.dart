@@ -144,7 +144,7 @@ class _GrammarDetailScreenState extends ConsumerState<GrammarDetailScreen> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: item.examples.length,
-                    separatorBuilder: (_, __) => Divider(
+                    separatorBuilder: (_, _) => Divider(
                       height: 1,
                       color: isDark ? AppColors.darkBorder : AppColors.lightBorder,
                     ),

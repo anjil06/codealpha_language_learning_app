@@ -34,16 +34,20 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
     try {
       final authRepo = ref.read(authRepositoryProvider);
       await authRepo.sendPasswordResetEmail(_emailController.text);
-      setState(() {
-        _isSubmitted = true;
-      });
+      if (mounted) {
+        setState(() {
+          _isSubmitted = true;
+        });
+      }
     } catch (_) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Failed to send reset link. Please check email address.'),
-          backgroundColor: AppColors.error,
-        ),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Failed to send reset link. Please check email address.'),
+            backgroundColor: AppColors.error,
+          ),
+        );
+      }
     } finally {
       if (mounted) {
         setState(() {
@@ -162,3 +166,4 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
     );
   }
 }
+

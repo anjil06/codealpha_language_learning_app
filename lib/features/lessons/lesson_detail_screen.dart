@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/constants/app_colors.dart';
-import '../../core/constants/app_constants.dart';
 import '../../core/services/app_providers.dart';
 import '../../core/widgets/custom_button.dart';
 import '../../models/lesson_model.dart';
@@ -20,9 +19,7 @@ class LessonDetailScreen extends ConsumerStatefulWidget {
 }
 
 class _LessonDetailScreenState extends ConsumerState<LessonDetailScreen> {
-  int _currentStep = 0;
   final Map<int, int?> _selectedAnswers = {};
-  bool _isCompleted = false;
 
   void _speak(String text) {
     final tts = ref.read(ttsServiceProvider);
@@ -31,7 +28,6 @@ class _LessonDetailScreenState extends ConsumerState<LessonDetailScreen> {
   }
 
   Future<void> _completeLesson(LessonModel lesson) async {
-    setState(() => _isCompleted = true);
     final progressRepo = ref.read(progressRepositoryProvider);
     await progressRepo.recordLessonCompleted(lesson.id);
     ref.invalidate(progressProvider);
@@ -166,7 +162,7 @@ class _LessonDetailScreenState extends ConsumerState<LessonDetailScreen> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: lesson.vocabularyWords.length,
-                    separatorBuilder: (_, __) => Divider(
+                    separatorBuilder: (_, _) => Divider(
                       height: 1,
                       color: isDark ? AppColors.darkBorder : AppColors.lightBorder,
                     ),
@@ -231,7 +227,7 @@ class _LessonDetailScreenState extends ConsumerState<LessonDetailScreen> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: lesson.exampleSentences.length,
-                    separatorBuilder: (_, __) => Divider(
+                    separatorBuilder: (_, _) => Divider(
                       height: 1,
                       color: isDark ? AppColors.darkBorder : AppColors.lightBorder,
                     ),
@@ -404,3 +400,4 @@ class _LessonDetailScreenState extends ConsumerState<LessonDetailScreen> {
     );
   }
 }
+

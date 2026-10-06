@@ -12,7 +12,6 @@ class LessonsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final lessonsAsync = ref.watch(lessonsProvider);
     final currentLang = ref.watch(currentLanguageModelProvider);
-    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
       appBar: AppBar(
@@ -23,7 +22,7 @@ class LessonsScreen extends ConsumerWidget {
           return ListView.separated(
             padding: const EdgeInsets.all(20),
             itemCount: lessons.length,
-            separatorBuilder: (_, __) => const SizedBox(height: 14),
+            separatorBuilder: (_, _) => const SizedBox(height: 14),
             itemBuilder: (context, index) {
               final lesson = lessons[index];
               final isCompleted = lesson.isCompleted;
@@ -154,3 +153,4 @@ class LessonsScreen extends ConsumerWidget {
     );
   }
 }
+

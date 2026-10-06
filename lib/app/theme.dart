@@ -21,7 +21,6 @@ class AppTheme {
       useMaterial3: true,
       colorScheme: colorScheme,
       scaffoldBackgroundColor: AppColors.lightBackground,
-      fontFamily: null, // default system font
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -34,7 +33,7 @@ class AppTheme {
         ),
         iconTheme: IconThemeData(color: AppColors.lightTextPrimary),
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: AppColors.lightCard,
         elevation: 0,
         margin: EdgeInsets.zero,
@@ -134,7 +133,7 @@ class AppTheme {
         ),
         iconTheme: IconThemeData(color: AppColors.darkTextPrimary),
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: AppColors.darkCard,
         elevation: 0,
         margin: EdgeInsets.zero,
@@ -203,3 +202,4 @@ class AppTheme {
     );
   }
 }
+

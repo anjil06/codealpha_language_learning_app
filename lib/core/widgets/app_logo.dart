@@ -99,3 +99,4 @@ class AppLogo extends StatelessWidget {
     );
   }
 }
+

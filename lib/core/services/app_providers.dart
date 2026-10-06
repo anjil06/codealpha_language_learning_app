@@ -50,60 +50,59 @@ final progressRepositoryProvider = Provider<ProgressRepository>((ref) {
   return ProgressRepository(storage, auth);
 });
 
-// App Settings & State Notifiers
+// App Settings & State Notifiers using Riverpod Notifier
 
-class ThemeModeNotifier extends StateNotifier<ThemeMode> {
-  final StorageService _storage;
-  ThemeModeNotifier(this._storage)
-      : super(_storage.isDarkMode ? ThemeMode.dark : ThemeMode.light);
+class ThemeModeNotifier extends Notifier<ThemeMode> {
+  @override
+  ThemeMode build() {
+    final storage = ref.watch(storageServiceProvider);
+    return storage.isDarkMode ? ThemeMode.dark : ThemeMode.light;
+  }
 
   void toggleTheme() {
     final isDark = state == ThemeMode.dark;
-    final next = isDark ? ThemeMode.light : ThemeMode.dark;
-    state = next;
-    _storage.setDarkMode(!isDark);
+    state = isDark ? ThemeMode.light : ThemeMode.dark;
+    ref.read(storageServiceProvider).setDarkMode(!isDark);
   }
 }
 
-final themeModeProvider = StateNotifierProvider<ThemeModeNotifier, ThemeMode>((ref) {
-  final storage = ref.watch(storageServiceProvider);
-  return ThemeModeNotifier(storage);
-});
+final themeModeProvider = NotifierProvider<ThemeModeNotifier, ThemeMode>(ThemeModeNotifier.new);
 
-class SelectedLanguageNotifier extends StateNotifier<String> {
-  final StorageService _storage;
-  SelectedLanguageNotifier(this._storage) : super(_storage.selectedLanguage);
+class SelectedLanguageNotifier extends Notifier<String> {
+  @override
+  String build() {
+    final storage = ref.watch(storageServiceProvider);
+    return storage.selectedLanguage;
+  }
 
   Future<void> setLanguage(String languageId) async {
     state = languageId;
-    await _storage.setSelectedLanguage(languageId);
+    await ref.read(storageServiceProvider).setSelectedLanguage(languageId);
   }
 }
 
 final selectedLanguageProvider =
-    StateNotifierProvider<SelectedLanguageNotifier, String>((ref) {
-  final storage = ref.watch(storageServiceProvider);
-  return SelectedLanguageNotifier(storage);
-});
+    NotifierProvider<SelectedLanguageNotifier, String>(SelectedLanguageNotifier.new);
 
 // Current User State Notifier
-class UserStateNotifier extends StateNotifier<UserModel?> {
-  final AuthRepository _authRepo;
-  UserStateNotifier(this._authRepo) : super(_authRepo.currentUser);
+class UserStateNotifier extends Notifier<UserModel?> {
+  @override
+  UserModel? build() {
+    final authRepo = ref.watch(authRepositoryProvider);
+    return authRepo.currentUser;
+  }
 
   void setUser(UserModel? user) {
     state = user;
   }
 
   Future<void> refresh() async {
-    state = _authRepo.currentUser;
+    final authRepo = ref.read(authRepositoryProvider);
+    state = authRepo.currentUser;
   }
 }
 
-final userStateProvider = StateNotifierProvider<UserStateNotifier, UserModel?>((ref) {
-  final authRepo = ref.watch(authRepositoryProvider);
-  return UserStateNotifier(authRepo);
-});
+final userStateProvider = NotifierProvider<UserStateNotifier, UserModel?>(UserStateNotifier.new);
 
 // Progress State Provider
 final progressProvider = FutureProvider<ProgressModel>((ref) async {
@@ -150,3 +149,4 @@ final currentLanguageModelProvider = Provider<LanguageModel>((ref) {
     orElse: () => LanguageModel.supportedLanguages.first,
   );
 });
+

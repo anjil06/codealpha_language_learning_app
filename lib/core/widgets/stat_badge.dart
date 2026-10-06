@@ -90,3 +90,4 @@ class StatBadge extends StatelessWidget {
     return child;
   }
 }
+

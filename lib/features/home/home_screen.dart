@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/constants/app_colors.dart';
-import '../../core/constants/app_constants.dart';
 import '../../core/services/app_providers.dart';
 import '../../core/widgets/stat_badge.dart';
 
@@ -13,7 +12,6 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userStateProvider);
     final currentLanguage = ref.watch(currentLanguageModelProvider);
-    final progressAsync = ref.watch(progressProvider);
     final lessonsAsync = ref.watch(lessonsProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
@@ -421,7 +419,7 @@ class HomeScreen extends ConsumerWidget {
                       child: CircularProgressIndicator(),
                     ),
                   ),
-                  error: (_, __) => const SizedBox(),
+                  error: (_, _) => const SizedBox(),
                 ),
                 const SizedBox(height: 24),
               ],
@@ -476,3 +474,4 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 }
+

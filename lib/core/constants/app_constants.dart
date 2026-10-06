@@ -53,3 +53,4 @@ class AppConstants {
     return 1.0;
   }
 }
+

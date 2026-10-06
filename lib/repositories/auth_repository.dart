@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import '../core/services/firebase_service.dart';
 import '../core/services/storage_service.dart';
@@ -177,3 +176,4 @@ class AuthRepository {
     await _storageService.clearUserCache();
   }
 }
+
